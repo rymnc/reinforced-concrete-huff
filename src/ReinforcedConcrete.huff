@@ -1,0 +1,82 @@
+/* Interface */
+#define function hash(uint256,uint256) pure returns (uint256)
+
+/* Storage Slots */
+#define constant Q   = 0x30644e72e131a029b85045b68181585d2833e84879b9709143e1f593f0000001
+
+// concrete constants
+// pulled from the implementation
+// https://extgit.iaik.tugraz.at/krypto/zkfriendlyhashzoo/-/blob/33fe9952682eca1337ac7f947b9ebe366faeda9c/plain_impls/src/reinforced_concrete/reinforced_concrete.rs
+#define constant C00 = 0x215510b29c6b20e05516126a5b33016a16a92610d560c7ecbca2345dab7ae0bf
+#define constant C01 = 0x07e9c9f7343a930646fbff4ce7bea19ed1938a6db7caedaa5e38f47aae527624
+#define constant C02 = 0x015b1f41ec3a6e2b66530dcfc410f859243e6777cf44bb88d7db57e9018de353
+
+// bars constants
+// pulled from the implementation
+
+// bricks constants
+// pulled from the implementation
+
+/* Methods */
+#define macro CONCRETE(const_a, const_b, const_c) = takes (3) returns (3) {
+    // this macro takes the top 3 elements from the stack
+    // i.e the state, s0, s1, and s2
+    // and performs operations on them as defined in
+    // the concrete specification
+    // input stack: [s0, s1, s2]
+    // first set s0 as sum
+    // sum = s0 + s1 + s2
+    [Q] dup2 dup4 addmod // [sum', s0, s1, s2]
+    [Q] swap1 dup5 addmod // [sum, s0, s1, s2] 
+    // now iterate thru all elements,
+    // adding sum to all elements
+    // s0 = s0 + sum + const_a
+    // s1 = s1 + sum + const_b
+    // s2 = s2 + sum + const_c
+    [Q] dup2 dup4 addmod // [s0', sum, s0, s1, s2]
+    [Q] swap1 <const_a> addmod // [s0'', sum, s0, s1, s2]
+    swap2 pop // [sum, s0'', s1, s2]
+    [Q] dup4 dup3 addmod // [s1', sum, s0'', s1, s2]
+    [Q] swap1 <const_b> addmod // [s1'', sum, s0'', s1, s2]
+    swap3 pop // [sum, s0'', s1'', s2]
+    [Q] dup5 dup3 addmod // [s2', sum, s0'', s1'', s2]
+    [Q] swap1 <const_c> addmod // [s2'', sum, s0'', s1'', s2]
+    swap4 pop pop // [s0'', s1'', s2'']
+}
+
+#define macro BRICKS() = takes(3) returns(3) {
+    // s0 = s0 * s0 * s0 * s0
+    // s1 = s1 * s1 + (alphas[0].count(s1) + betas[0] ) * s1
+    // s2 =  (alphas[1].count(s1) + betas[1]) * s1
+}
+
+#define macro MAIN() = takes(0) returns(0) {
+    push0 // [0]
+    0x24 calldataload // [s1, 0]
+    0x04 calldataload // [s0, s1, 0]
+
+    CONCRETE(C00, C01, C02) // [s0, s1, s2]
+
+    // // first rounds <not implemented>
+    // BRICKS()
+    // CONCRETE(C10, C11, C12)
+    // BRICKS()
+    // CONCRETE(C20, C21, C22)
+    // BRICKS()
+    // CONCRETE(C30, C31, C32)
+
+    // // middle rounds <not implemented>
+    // BARS()
+    // CONCRETE(C40, C41, C42)
+
+    // // last rounds <not implemented>
+    // BRICKS()
+    // CONCRETE(C50, C51, C52)
+    // BRICKS()
+    // CONCRETE(C60, C61, C62)
+    // BRICKS()
+    // CONCRETE(C70, C71, C72)
+
+    push0 mstore
+    0x20 push0 return
+}
