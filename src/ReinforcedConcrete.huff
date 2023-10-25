@@ -46,8 +46,34 @@
 
 #define macro BRICKS() = takes(3) returns(3) {
     // s0 = s0 * s0 * s0 * s0
-    // s1 = s1 * s1 + (alphas[0].count(s1) + betas[0] ) * s1
+    // s1 = s1 * s1 + (alphas[0].count(s0) + betas[0] ) * s1
     // s2 =  (alphas[1].count(s1) + betas[1]) * s1
+
+    // input stack: [s0, s1, s2]
+    // s0 = s0 * s0 * s0 * s0
+    // first compute squares of s0 and s1
+    [Q] dup2 dup3 mulmod // [s0', s0, s1, s2]
+    [Q] dup4 dup5 mulmod // [s1', s0', s0, s1, s2]
+    swap1 // [s0', s1', s0, s1, s2]
+
+    // compute new s0
+    [Q] dup2 dup3 mulmod // [s0'', s0', s1', s0, s1, s2]
+    [Q] swap1 dup5 mulmod // [s0_out, s0', s1', s0, s1, s2]
+
+    // compute new s1
+    swap1 dup4 [Q] swap2 addmod // [s1', s0_out, s1', s0, s1, s2]
+    0x02 [Q] swap2 addmod // [s1'', s0_out, s1', s0, s1, s2]
+    dup5 [Q] swap2 mulmod // [s1_out, s0_out, s1', s0, s1, s2]
+
+    // compute new s2
+    // add s1 3 times to s1' 
+    // s1' = s1' + s1 + s1 + s1
+    swap2 dup5 [Q] swap2 addmod // [s1'', s0_out, s1_out, s0, s1, s2]
+    dup5 [Q] swap2 addmod // [s1''', s0_out, s1_out, s0, s1, s2]
+    dup5 [Q] swap2 addmod // [s1'''', s0_out, s1_out, s0, s1, s2]
+    0x04 [Q] swap2 addmod // [s1''''', s0_out, s1_out, s0, s1, s2]
+    dup6 [Q] swap2 mulmod // [s2_out, s0_out, s1_out, s0, s1, s2] 
+    swap5 pop swap2 pop swap2 pop // [s0_out, s1_out, s2_out]
 }
 
 #define macro MAIN() = takes(0) returns(0) {
@@ -58,7 +84,7 @@
     CONCRETE(C00, C01, C02) // [s0, s1, s2]
 
     // // first rounds <not implemented>
-    // BRICKS()
+    BRICKS()
     // CONCRETE(C10, C11, C12)
     // BRICKS()
     // CONCRETE(C20, C21, C22)
