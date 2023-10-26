@@ -10,6 +10,27 @@
 #define constant C00 = 0x215510b29c6b20e05516126a5b33016a16a92610d560c7ecbca2345dab7ae0bf
 #define constant C01 = 0x07e9c9f7343a930646fbff4ce7bea19ed1938a6db7caedaa5e38f47aae527624
 #define constant C02 = 0x015b1f41ec3a6e2b66530dcfc410f859243e6777cf44bb88d7db57e9018de353
+#define constant C10 = 0x22c704fede5cda19337169658a93f22faad854e493a9658773d803688859aa82
+#define constant C11 = 0x28c05784ecfb24064874e90f67193017fb6091ccd4ed819f1a25a9517f3c040e
+#define constant C12 = 0x12bd9cae9374f5ac3ceaa747b8c5738f5e3faa3488b1e7f1b23dc9f52cab9797
+#define constant C20 = 0x06fde3a5b074a23f3a643b30d5a2051e1390ea1432e9736615d416d83a7fd85f
+#define constant C21 = 0x103278c9bc3b3383e99424c36dae2ccc9fcbf7181d53276bea4a47d79eaae473
+#define constant C22 = 0x12b44d1037c7f6bec1507c0eb6d55fbf9a57f84904914ea7d3eb33eac23d4b1a
+#define constant C30 = 0x10d954340cdcae3d7c81a1ad43e13cfc52b24eba26bbefbd4a820fede4537988
+#define constant C31 = 0x1d8fb5d1ec360409e602cc2e78cd0658b667ea4c36c25e9dd3cca25196cbfa53
+#define constant C32 = 0x11709df530356f7807da53bac1c8d389ef7e0a2eb94095acdd276043d07ef44f
+#define constant C40 = 0x0236c4eab23cfbe95493e6a0101724602b08cb99c4bd98d7ca37c1ecbbee1148
+#define constant C41 = 0x1e0474c2f00538f6a05d05dcfc43e73f88010d373b409c254631188dd0428551
+#define constant C42 = 0x284536744255c64d18c36f259925ed6d3c5bb282eb574101f57e7960e37555c6
+#define constant C50 = 0x0c921fa35ec9b5d7b6d47eb972f9ae13b0877f063b27c35d3af8ee36081cb19e
+#define constant C51 = 0x23419e1990860e770065cd4e96a7e76c68b8198906dcd0cdb5c546b83db91eaa
+#define constant C52 = 0x1b58c7c715b261cda1fbbad214d50c6ed6ea812c7d6db78ed023a77f825edc63
+#define constant C60 = 0x2258c2df6c6b393d2471f2bed2e63d4b74772375424ea75e2daa36f8a2226ecd
+#define constant C61 = 0x015bb2517d8872cc185aa6ca3c0d834dad5fbe288fa1c38662d5dbb95fc96988
+#define constant C62 = 0x2d8cf5aa0b7c11fdb431d45897214b9332928dabd2ab1007874813d8ac431018
+#define constant C70 = 0x101dcc35a6d62b54733a9854021027ac199b0fe6b73f61555203c956bb45c406
+#define constant C71 = 0x0407ec9a0a155cfab1c30e6c2c2c05b0c7353167a196883a71c30fcd8f07fcf5
+#define constant C72 = 0x284e315339d5e4d0a248a9ef71f9aaf6560096869b4859bdccc9b57a2bfba8a0
 
 // bars constants
 // pulled from the implementation
@@ -83,13 +104,13 @@
 
     CONCRETE(C00, C01, C02) // [s0, s1, s2]
 
-    // // first rounds <not implemented>
+    // first rounds 
     BRICKS()
-    // CONCRETE(C10, C11, C12)
-    // BRICKS()
-    // CONCRETE(C20, C21, C22)
-    // BRICKS()
-    // CONCRETE(C30, C31, C32)
+    CONCRETE(C10, C11, C12)
+    BRICKS()
+    CONCRETE(C20, C21, C22)
+    BRICKS()
+    CONCRETE(C30, C31, C32)
 
     // // middle rounds <not implemented>
     // BARS()

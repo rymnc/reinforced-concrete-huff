@@ -20,7 +20,9 @@ contract RCTest is Test {
         // concrete assertion
         // assertEq(val, 0x05a3f4f1741752744392ce84bb565315b13bb9a73758412f799276333019d901);
         // bricks assertion
-        assertEq(val, 0x21b2d62d0463a46cd3ee90f6e6f02fadfa0ef96239e05d925cf21c11950be875);
+        // assertEq(val, 0x21b2d62d0463a46cd3ee90f6e6f02fadfa0ef96239e05d925cf21c11950be875);
+        // first rounds assertion
+        assertEq(val, 0x0a1bbc638e16abd280864ccd79f173586743ae47a13140600d3cf98a8ffa4dd4);
     }
 
     function testHasherGas() public view {
