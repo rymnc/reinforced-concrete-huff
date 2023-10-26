@@ -88,13 +88,71 @@
 
     // compute new s2
     // add s1 3 times to s1' 
-    // s1' = s1' + s1 + s1 + s1
+    // s1' = s1' + s1 + s1 + s1 + beta
     swap2 dup5 [Q] swap2 addmod // [s1'', s0_out, s1_out, s0, s1, s2]
     dup5 [Q] swap2 addmod // [s1''', s0_out, s1_out, s0, s1, s2]
     dup5 [Q] swap2 addmod // [s1'''', s0_out, s1_out, s0, s1, s2]
     0x04 [Q] swap2 addmod // [s1''''', s0_out, s1_out, s0, s1, s2]
     dup6 [Q] swap2 mulmod // [s2_out, s0_out, s1_out, s0, s1, s2] 
     swap5 pop swap2 pop swap2 pop // [s0_out, s1_out, s2_out]
+}
+
+#define macro DECOMPOSE() = takes(1) returns(27) {
+    // single word long division
+}
+
+#define macro COMPOSE() = takes(27) returns(1) {
+    // single word mul + add
+}
+
+#define macro SBOX() = takes(1) returns(1) {
+    // get sbox from index provided by top element
+    // of stack
+}
+
+#define macro GET_SBOX_VALUE() = takes(1) returns(1) {
+    // get sbox value from index provided by top element
+    // of stack
+}
+
+#define macro BARS() = takes(3) returns(3) {
+    // for s0, s1 and s2,
+    // we need to decompose 
+    // and compose the elements
+
+    // input stack: [s0, s1, s2]
+    DECOMPOSE()
+    
+    // sbox 27 times
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+    SBOX()
+
+    COMPOSE()
 }
 
 #define macro MAIN() = takes(0) returns(0) {
