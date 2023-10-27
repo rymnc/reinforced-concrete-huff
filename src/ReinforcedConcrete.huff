@@ -80,7 +80,7 @@
 #define constant SBOX_39 = 0x021d016a00d20227015c0117021a015b01f8007c023401bb019c00e200e300f8
 #define constant SBOX_40 = 0x024c028102820283028402850286028702880289028a028b028c028d028e028f
 #define constant SBOX_41 = 0x0290029102920293029402950296029702980299029a029b029c029d029e029f
-#define constant SBOX_42 = 0x02a002a102a202a302a402a502a602a702a802a902aa
+#define constant SBOX_42 = 0x02a002a102a202a302a402a502a602a702a802a902aa00000000000000000000
 
 // bricks constants
 // pulled from the implementation
@@ -163,6 +163,288 @@
     // what we want to do here is, take the index of the element / 16, and then ifeq from 0 => 43
     // if we find the index within the compressed sbox, we do element % 16, shl till we reach it, 
     // and return the value
+    // OR jumpi while keeping result in the top of the stack
+    // input stack: [index]
+    dup1 // [index, index]
+    0x10 // [0x10, index, index]
+    swap1 // [index, 0x10, index]
+    div // [index_of_compressed_sbox, index]
+    swap1 // [index, index_of_compressed_sbox]
+    0x10 // [0x10, index, index_of_compressed_sbox]
+    swap1 // [index, 0x10, index_of_compressed_sbox]
+    mod // [index_in_compressed_sbox, index_of_compressed_sbox]
+    swap1 // [index_of_compressed_sbox, index_in_compressed_sbox]
+
+    // now we need to compare the value of the index of compressed sbox
+    // with the index of the sbox we want to fetch
+    // ifeq 0 => 42
+    dup1 0x00 eq found_compressed_sbox_index_0 jumpi
+    dup1 0x01 eq found_compressed_sbox_index_1 jumpi
+    dup1 0x02 eq found_compressed_sbox_index_2 jumpi
+    dup1 0x03 eq found_compressed_sbox_index_3 jumpi
+    dup1 0x04 eq found_compressed_sbox_index_4 jumpi
+    dup1 0x05 eq found_compressed_sbox_index_5 jumpi
+    dup1 0x06 eq found_compressed_sbox_index_6 jumpi
+    dup1 0x07 eq found_compressed_sbox_index_7 jumpi
+    dup1 0x08 eq found_compressed_sbox_index_8 jumpi
+    dup1 0x09 eq found_compressed_sbox_index_9 jumpi
+    dup1 0x0a eq found_compressed_sbox_index_a jumpi
+    dup1 0x0b eq found_compressed_sbox_index_b jumpi
+    dup1 0x0c eq found_compressed_sbox_index_c jumpi
+    dup1 0x0d eq found_compressed_sbox_index_d jumpi
+    dup1 0x0e eq found_compressed_sbox_index_e jumpi
+    dup1 0x0f eq found_compressed_sbox_index_f jumpi
+    dup1 0x10 eq found_compressed_sbox_index_10 jumpi
+    dup1 0x11 eq found_compressed_sbox_index_11 jumpi
+    dup1 0x12 eq found_compressed_sbox_index_12 jumpi
+    dup1 0x13 eq found_compressed_sbox_index_13 jumpi
+    dup1 0x14 eq found_compressed_sbox_index_14 jumpi
+    dup1 0x15 eq found_compressed_sbox_index_15 jumpi
+    dup1 0x16 eq found_compressed_sbox_index_16 jumpi
+    dup1 0x17 eq found_compressed_sbox_index_17 jumpi
+    dup1 0x18 eq found_compressed_sbox_index_18 jumpi
+    dup1 0x19 eq found_compressed_sbox_index_19 jumpi
+    dup1 0x1a eq found_compressed_sbox_index_1a jumpi
+    dup1 0x1b eq found_compressed_sbox_index_1b jumpi
+    dup1 0x1c eq found_compressed_sbox_index_1c jumpi
+    dup1 0x1d eq found_compressed_sbox_index_1d jumpi
+    dup1 0x1e eq found_compressed_sbox_index_1e jumpi
+    dup1 0x1f eq found_compressed_sbox_index_1f jumpi
+    dup1 0x20 eq found_compressed_sbox_index_20 jumpi
+    dup1 0x21 eq found_compressed_sbox_index_21 jumpi
+    dup1 0x22 eq found_compressed_sbox_index_22 jumpi
+    dup1 0x23 eq found_compressed_sbox_index_23 jumpi
+    dup1 0x24 eq found_compressed_sbox_index_24 jumpi
+    dup1 0x25 eq found_compressed_sbox_index_25 jumpi
+    dup1 0x26 eq found_compressed_sbox_index_26 jumpi
+    dup1 0x27 eq found_compressed_sbox_index_27 jumpi
+    dup1 0x28 eq found_compressed_sbox_index_28 jumpi
+    dup1 0x29 eq found_compressed_sbox_index_29 jumpi
+    dup1 0x2a eq found_compressed_sbox_index_2a jumpi
+
+    // if we reach here, we have not found the compressed sbox index
+    // so we need to revert
+    push0 push0 revert
+
+    // if we reach here, we have found the compressed sbox index
+    // so we need to shl till we reach the index within the compressed sbox
+    // input stack: [index_in_compressed_sbox]
+    found_compressed_sbox_index_0:
+        [SBOX_0] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_1:
+        [SBOX_1] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_2:
+        [SBOX_2] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_3:
+        [SBOX_3] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_4:
+        [SBOX_4] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_5:
+        [SBOX_5] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_6:
+        [SBOX_6] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_7:
+        [SBOX_7] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_8:
+        [SBOX_8] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_9:
+        [SBOX_9] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_a:
+        [SBOX_10] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_b:
+        [SBOX_11] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_c:
+        [SBOX_12] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_d:
+        [SBOX_13] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_e:
+        [SBOX_14] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_f:
+        [SBOX_15] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_10:
+        [SBOX_16] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_11:
+        [SBOX_17] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_12:
+        [SBOX_18] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_13:
+        [SBOX_19] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_14:
+        [SBOX_20] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_15:
+        [SBOX_21] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_16:
+        [SBOX_22] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_17:
+        [SBOX_23] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_18:
+        [SBOX_24] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_19:
+        [SBOX_25] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_1a:
+        [SBOX_26] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_1b:
+        [SBOX_27] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_1c:
+        [SBOX_28] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_1d:
+        [SBOX_29] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_1e:
+        [SBOX_30] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_1f:
+        [SBOX_31] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_20:
+        [SBOX_32] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_21:
+        [SBOX_33] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_22:
+        [SBOX_34] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_23:
+        [SBOX_35] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_24:
+        [SBOX_36] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_25:
+        [SBOX_37] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_26:
+        [SBOX_38] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_27:
+        [SBOX_39] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_28:
+        [SBOX_40] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_29:
+        [SBOX_41] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    found_compressed_sbox_index_2a:
+        [SBOX_42] swap1 0x10
+        UNPACK_FROM_CENTER() // [sbox_value]
+        cont jump
+
+    cont:
 }
 
 #define macro BARS() = takes(3) returns(3) {
