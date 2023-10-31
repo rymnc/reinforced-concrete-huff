@@ -82,6 +82,92 @@
 #define constant SBOX_41 = 0x0290029102920293029402950296029702980299029a029b029c029d029e029f
 #define constant SBOX_42 = 0x02a002a102a202a302a402a502a602a702a802a902aa00000000000000000000
 
+#define constant SI_0  = 0x2a1
+#define constant SI_1  = 0x2a6
+#define constant SI_2  = 0x29b
+#define constant SI_3  = 0x2ab
+#define constant SI_4  = 0x2a8
+#define constant SI_5  = 0x28f
+#define constant SI_6  = 0x2ab
+#define constant SI_7  = 0x2ab
+#define constant SI_8  = 0x2a9
+#define constant SI_9  = 0x2ab
+#define constant SI_10 = 0x2a3
+#define constant SI_11 = 0x29c
+#define constant SI_12 = 0x2a3
+#define constant SI_13 = 0x2a5
+#define constant SI_14 = 0x2a8
+#define constant SI_15 = 0x2a9
+#define constant SI_16 = 0x29d
+#define constant SI_17 = 0x2ab
+#define constant SI_18 = 0x2a9
+#define constant SI_19 = 0x2a5
+#define constant SI_20 = 0x29c
+#define constant SI_21 = 0x28e
+#define constant SI_22 = 0x297
+#define constant SI_23 = 0x29a
+#define constant SI_24 = 0x290
+#define constant SI_25 = 0x292
+#define constant SI_26 = 0x28b
+
+#define constant DIVISOR_0  = 0xa840000000000000
+#define constant DIVISOR_1  = 0xa980000000000000
+#define constant DIVISOR_2  = 0xa6c0000000000000
+#define constant DIVISOR_3  = 0xaac0000000000000
+#define constant DIVISOR_4  = 0xaa00000000000000
+#define constant DIVISOR_5  = 0xa3c0000000000000
+#define constant DIVISOR_6  = 0xaac0000000000000
+#define constant DIVISOR_7  = 0xaac0000000000000
+#define constant DIVISOR_8  = 0xaa40000000000000
+#define constant DIVISOR_9  = 0xaac0000000000000
+#define constant DIVISOR_10 = 0xa8c0000000000000
+#define constant DIVISOR_11 = 0xa700000000000000
+#define constant DIVISOR_12 = 0xa8c0000000000000
+#define constant DIVISOR_13 = 0xa940000000000000
+#define constant DIVISOR_14 = 0xaa00000000000000
+#define constant DIVISOR_15 = 0xaa40000000000000
+#define constant DIVISOR_16 = 0xa740000000000000
+#define constant DIVISOR_17 = 0xaac0000000000000
+#define constant DIVISOR_18 = 0xaa40000000000000
+#define constant DIVISOR_19 = 0xa940000000000000
+#define constant DIVISOR_20 = 0xa700000000000000
+#define constant DIVISOR_21 = 0xa380000000000000
+#define constant DIVISOR_22 = 0xa5c0000000000000
+#define constant DIVISOR_23 = 0xa680000000000000
+#define constant DIVISOR_24 = 0xa400000000000000
+#define constant DIVISOR_25 = 0xa480000000000000
+#define constant DIVISOR_26 = 0xa2c0000000000000
+
+#define constant RECIPROCAL_0  = 0x8583fe7a7c018800
+#define constant RECIPROCAL_1  = 0x82a4a0182a4a0000
+#define constant RECIPROCAL_2  = 0x8904fd503744b000
+#define constant RECIPROCAL_3  = 0x7fd005ff4017fc00
+#define constant RECIPROCAL_4  = 0x8181818181818000
+#define constant RECIPROCAL_5  = 0x903847ea1cec1000
+#define constant RECIPROCAL_6  = 0x7fd005ff4017fc00
+#define constant RECIPROCAL_7  = 0x7fd005ff4017fc00
+#define constant RECIPROCAL_8  = 0x80f0965dfabcb800
+#define constant RECIPROCAL_9  = 0x7fd005ff4017fc00
+#define constant RECIPROCAL_10 = 0x845c8a0ce5129800
+#define constant RECIPROCAL_11 = 0x886e5f0abb049800
+#define constant RECIPROCAL_12 = 0x845c8a0ce5129800
+#define constant RECIPROCAL_13 = 0x8336d48397a23800
+#define constant RECIPROCAL_14 = 0x8181818181818000
+#define constant RECIPROCAL_15 = 0x80f0965dfabcb800
+#define constant RECIPROCAL_16 = 0x87d8340ab6e97000
+#define constant RECIPROCAL_17 = 0x7fd005ff4017fc00
+#define constant RECIPROCAL_18 = 0x80f0965dfabcb800
+#define constant RECIPROCAL_19 = 0x8336d48397a23800
+#define constant RECIPROCAL_20 = 0x886e5f0abb049800
+#define constant RECIPROCAL_21 = 0x90d4f120190d5000
+#define constant RECIPROCAL_22 = 0x8b64018b64018800
+#define constant RECIPROCAL_23 = 0x899c0f601899c000
+#define constant RECIPROCAL_24 = 0x8f9c18f9c18fa000
+#define constant RECIPROCAL_25 = 0x8e6527af1373f000
+#define constant RECIPROCAL_26 = 0x92add0064ab74000
+
+// constant shift for bn254
+#define constant NORM_SHIFT = 0x36
 // bricks constants
 // pulled from the implementation
 
@@ -144,8 +230,42 @@
     swap5 pop swap2 pop swap2 pop // [s0_out, s1_out, s2_out]
 }
 
+#define macro LONG_DIVISION(divisor, reciprocal) = takes(1) returns(2) {
+    // input stack: [element]
+    // output stack: [quotient, remainder]
+}
+
 #define macro DECOMPOSE() = takes(1) returns(27) {
     // single word long division
+    // input stack: [s0]
+    // output stack: [quotient_0, remainder_0, ..]
+
+    LONG_DIVISION(DIVISOR_26, RECIPROCAL_26) // [quotient_26, remainder_26, ..] 
+    LONG_DIVISION(DIVISOR_25, RECIPROCAL_25) // [quotient_25, remainder_25, ..]
+    LONG_DIVISION(DIVISOR_24, RECIPROCAL_24) // [quotient_24, remainder_24, ..]
+    LONG_DIVISION(DIVISOR_23, RECIPROCAL_23) // [quotient_23, remainder_23, ..]
+    LONG_DIVISION(DIVISOR_22, RECIPROCAL_22) // [quotient_22, remainder_22, ..]
+    LONG_DIVISION(DIVISOR_21, RECIPROCAL_21) // [quotient_21, remainder_21, ..]
+    LONG_DIVISION(DIVISOR_20, RECIPROCAL_20) // [quotient_20, remainder_20, ..]
+    LONG_DIVISION(DIVISOR_19, RECIPROCAL_19) // [quotient_19, remainder_19, ..]
+    LONG_DIVISION(DIVISOR_18, RECIPROCAL_18) // [quotient_18, remainder_18, ..]
+    LONG_DIVISION(DIVISOR_17, RECIPROCAL_17) // [quotient_17, remainder_17, ..]
+    LONG_DIVISION(DIVISOR_16, RECIPROCAL_16) // [quotient_16, remainder_16, ..]
+    LONG_DIVISION(DIVISOR_15, RECIPROCAL_15) // [quotient_15, remainder_15, ..]
+    LONG_DIVISION(DIVISOR_14, RECIPROCAL_14) // [quotient_14, remainder_14, ..]
+    LONG_DIVISION(DIVISOR_13, RECIPROCAL_13) // [quotient_13, remainder_13, ..]
+    LONG_DIVISION(DIVISOR_12, RECIPROCAL_12) // [quotient_12, remainder_12, ..]
+    LONG_DIVISION(DIVISOR_11, RECIPROCAL_11) // [quotient_11, remainder_11, ..]
+    LONG_DIVISION(DIVISOR_10, RECIPROCAL_10) // [quotient_10, remainder_10, ..]
+    LONG_DIVISION(DIVISOR_9, RECIPROCAL_9) // [quotient_9, remainder_9, ..]
+    LONG_DIVISION(DIVISOR_8, RECIPROCAL_8) // [quotient_8, remainder_8, ..]
+    LONG_DIVISION(DIVISOR_7, RECIPROCAL_7) // [quotient_7, remainder_7, ..]
+    LONG_DIVISION(DIVISOR_6, RECIPROCAL_6) // [quotient_6, remainder_6, ..]
+    LONG_DIVISION(DIVISOR_5, RECIPROCAL_5) // [quotient_5, remainder_5, ..]
+    LONG_DIVISION(DIVISOR_4, RECIPROCAL_4) // [quotient_4, remainder_4, remainder_3, remainder_2, ..]
+    LONG_DIVISION(DIVISOR_3, RECIPROCAL_3) // [quotient_3, remainder_3, remainder_2, remainder_1, remainder_0]
+    LONG_DIVISION(DIVISOR_2, RECIPROCAL_2) // [quotient_2, remainder_2, remainder_1, remainder_0]
+    LONG_DIVISION(DIVISOR_1, RECIPROCAL_1) // [quotient_1, remainder_1, remainder_0, ..]
 }
 
 #define macro COMPOSE() = takes(27) returns(1) {
@@ -153,11 +273,6 @@
 }
 
 #define macro SBOX() = takes(1) returns(1) {
-    // get sbox from index provided by top element
-    // of stack
-}
-
-#define macro GET_SBOX_VALUE() = takes(1) returns(1) {
     // get sbox value from index provided by top element
     // of stack
     // what we want to do here is, take the index of the element / 16, and then ifeq from 0 => 43
@@ -456,38 +571,26 @@
     // and compose the elements
 
     // input stack: [s0, s1, s2]
-    DECOMPOSE()
-    
-    // sbox 27 times
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
-    SBOX()
+    DECOMPOSE() // [q, r_0, r_1, .., r_26, s1, s2]
+    SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
+    SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
+    SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
+    COMPOSE() // [s0_out, s1, s2]
+    swap1 // [s1, s0_out, s2]
 
-    COMPOSE()
+    DECOMPOSE()
+    SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
+    SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
+    SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
+    COMPOSE() // [s1_out, s0_out, s2]
+    swap2 // [s2, s0_out, s1_out]
+
+    DECOMPOSE()
+    SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
+    SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
+    SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
+    COMPOSE() // [s2_out, s0_out, s1_out]
+    swap2 swap1 // [s0_out, s1_out, s2_out]
 }
 
 #define macro MAIN() = takes(0) returns(0) {
