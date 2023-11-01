@@ -206,8 +206,21 @@
     swap1 0x02 shr swap1 // [quotient, remainder]
 }
 
+#define macro MUL_AND_ADD(si_i) = takes(2) returns (1) {
+    <si_i> mul add // [sbox_value * si_i + remainder_i]
+}
+
 #define macro COMPOSE() = takes(27) returns(1) {
     // res = (iterative_val * si_i) + remainder_i from 1..26 
+    // input stack: [iterative_val, remainder_1, remainder_2, ... remainder_26]
+    // output stack: [res]
+    MUL_AND_ADD(SI_1) MUL_AND_ADD(SI_2) MUL_AND_ADD(SI_3) MUL_AND_ADD(SI_4) 
+    MUL_AND_ADD(SI_5) MUL_AND_ADD(SI_6) MUL_AND_ADD(SI_7) MUL_AND_ADD(SI_8) 
+    MUL_AND_ADD(SI_9) MUL_AND_ADD(SI_10) MUL_AND_ADD(SI_11) MUL_AND_ADD(SI_12) 
+    MUL_AND_ADD(SI_13) MUL_AND_ADD(SI_14) MUL_AND_ADD(SI_15) MUL_AND_ADD(SI_16) 
+    MUL_AND_ADD(SI_17) MUL_AND_ADD(SI_18) MUL_AND_ADD(SI_19) MUL_AND_ADD(SI_20) 
+    MUL_AND_ADD(SI_21) MUL_AND_ADD(SI_22) MUL_AND_ADD(SI_23) MUL_AND_ADD(SI_24) 
+    MUL_AND_ADD(SI_25) MUL_AND_ADD(SI_26)
 }
 
 #define macro GET_SBOX_VALUE(sbox_compressed_idx) = takes(1) returns (1) {
@@ -481,22 +494,14 @@
     // and compose the elements
 
     // input stack: [s0, s1, s2]
-    BARS_ELEMENT() // [s0_sboxed, s1, s2]
-    // swap1
+    BARS_ELEMENT() // [s0_composed, s1, s2]
+    swap1 // [s1, s0_composed, s2]
 
-    // DECOMPOSE()
-    // SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
-    // SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
-    // SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
-    // COMPOSE() // [s1_out, s0_out, s2]
-    // swap2 // [s2, s0_out, s1_out]
+    BARS_ELEMENT() // [s1_composed, s0_composed, s2]
+    swap2 // [s2, s0_composed, s1_composed]
 
-    // DECOMPOSE()
-    // SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
-    // SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
-    // SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
-    // COMPOSE() // [s2_out, s0_out, s1_out]
-    // swap2 swap1 // [s0_out, s1_out, s2_out]
+    BARS_ELEMENT() // [s2_composed, s0_composed, s1_composed]
+    swap2 swap1 // [s0_composed, s1_composed, s2_composed]
 }
 
 #define macro MAIN() = takes(0) returns(0) {
@@ -516,15 +521,15 @@
 
     // // middle rounds <not implemented fully>
     BARS()
-    // CONCRETE(C40, C41, C42)
+    CONCRETE(C40, C41, C42)
 
-    // // last rounds <not implemented>
-    // BRICKS()
-    // CONCRETE(C50, C51, C52)
-    // BRICKS()
-    // CONCRETE(C60, C61, C62)
-    // BRICKS()
-    // CONCRETE(C70, C71, C72)
+    // last rounds <not implemented>
+    BRICKS()
+    CONCRETE(C50, C51, C52)
+    BRICKS()
+    CONCRETE(C60, C61, C62)
+    BRICKS()
+    CONCRETE(C70, C71, C72)
 
     push0 mstore
     0x20 push0 return
