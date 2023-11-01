@@ -110,66 +110,33 @@
 #define constant SI_25 = 0x292
 #define constant SI_26 = 0x28b
 
-#define constant DIVISOR_0  = 0xa840000000000000
-#define constant DIVISOR_1  = 0xa980000000000000
-#define constant DIVISOR_2  = 0xa6c0000000000000
-#define constant DIVISOR_3  = 0xaac0000000000000
-#define constant DIVISOR_4  = 0xaa00000000000000
-#define constant DIVISOR_5  = 0xa3c0000000000000
-#define constant DIVISOR_6  = 0xaac0000000000000
-#define constant DIVISOR_7  = 0xaac0000000000000
-#define constant DIVISOR_8  = 0xaa40000000000000
-#define constant DIVISOR_9  = 0xaac0000000000000
-#define constant DIVISOR_10 = 0xa8c0000000000000
-#define constant DIVISOR_11 = 0xa700000000000000
-#define constant DIVISOR_12 = 0xa8c0000000000000
-#define constant DIVISOR_13 = 0xa940000000000000
-#define constant DIVISOR_14 = 0xaa00000000000000
-#define constant DIVISOR_15 = 0xaa40000000000000
-#define constant DIVISOR_16 = 0xa740000000000000
-#define constant DIVISOR_17 = 0xaac0000000000000
-#define constant DIVISOR_18 = 0xaa40000000000000
-#define constant DIVISOR_19 = 0xa940000000000000
-#define constant DIVISOR_20 = 0xa700000000000000
-#define constant DIVISOR_21 = 0xa380000000000000
-#define constant DIVISOR_22 = 0xa5c0000000000000
-#define constant DIVISOR_23 = 0xa680000000000000
-#define constant DIVISOR_24 = 0xa400000000000000
-#define constant DIVISOR_25 = 0xa480000000000000
-#define constant DIVISOR_26 = 0xa2c0000000000000
-
-#define constant RECIPROCAL_0  = 0x8583fe7a7c018800
-#define constant RECIPROCAL_1  = 0x82a4a0182a4a0000
-#define constant RECIPROCAL_2  = 0x8904fd503744b000
-#define constant RECIPROCAL_3  = 0x7fd005ff4017fc00
-#define constant RECIPROCAL_4  = 0x8181818181818000
-#define constant RECIPROCAL_5  = 0x903847ea1cec1000
-#define constant RECIPROCAL_6  = 0x7fd005ff4017fc00
-#define constant RECIPROCAL_7  = 0x7fd005ff4017fc00
-#define constant RECIPROCAL_8  = 0x80f0965dfabcb800
-#define constant RECIPROCAL_9  = 0x7fd005ff4017fc00
-#define constant RECIPROCAL_10 = 0x845c8a0ce5129800
-#define constant RECIPROCAL_11 = 0x886e5f0abb049800
-#define constant RECIPROCAL_12 = 0x845c8a0ce5129800
-#define constant RECIPROCAL_13 = 0x8336d48397a23800
-#define constant RECIPROCAL_14 = 0x8181818181818000
-#define constant RECIPROCAL_15 = 0x80f0965dfabcb800
-#define constant RECIPROCAL_16 = 0x87d8340ab6e97000
-#define constant RECIPROCAL_17 = 0x7fd005ff4017fc00
-#define constant RECIPROCAL_18 = 0x80f0965dfabcb800
-#define constant RECIPROCAL_19 = 0x8336d48397a23800
-#define constant RECIPROCAL_20 = 0x886e5f0abb049800
-#define constant RECIPROCAL_21 = 0x90d4f120190d5000
-#define constant RECIPROCAL_22 = 0x8b64018b64018800
-#define constant RECIPROCAL_23 = 0x899c0f601899c000
-#define constant RECIPROCAL_24 = 0x8f9c18f9c18fa000
-#define constant RECIPROCAL_25 = 0x8e6527af1373f000
-#define constant RECIPROCAL_26 = 0x92add0064ab74000
-
-// constant shift for bn254
-#define constant NORM_SHIFT = 0x36
-// bricks constants
-// pulled from the implementation
+#define constant DIVISOR_0  = 0xa84
+#define constant DIVISOR_1  = 0xa98
+#define constant DIVISOR_2  = 0xa6c
+#define constant DIVISOR_3  = 0xaac
+#define constant DIVISOR_4  = 0xaa0
+#define constant DIVISOR_5  = 0xa3c
+#define constant DIVISOR_6  = 0xaac
+#define constant DIVISOR_7  = 0xaac
+#define constant DIVISOR_8  = 0xaa4
+#define constant DIVISOR_9  = 0xaac
+#define constant DIVISOR_10 = 0xa8c
+#define constant DIVISOR_11 = 0xa70
+#define constant DIVISOR_12 = 0xa8c
+#define constant DIVISOR_13 = 0xa94
+#define constant DIVISOR_14 = 0xaa0
+#define constant DIVISOR_15 = 0xaa4
+#define constant DIVISOR_16 = 0xa74
+#define constant DIVISOR_17 = 0xaac
+#define constant DIVISOR_18 = 0xaa4
+#define constant DIVISOR_19 = 0xa94
+#define constant DIVISOR_20 = 0xa70
+#define constant DIVISOR_21 = 0xa38
+#define constant DIVISOR_22 = 0xa5c
+#define constant DIVISOR_23 = 0xa68
+#define constant DIVISOR_24 = 0xa40
+#define constant DIVISOR_25 = 0xa48
+#define constant DIVISOR_26 = 0xa2c
 
 /* Methods */
 #define macro CONCRETE(const_a, const_b, const_c) = takes (3) returns (3) {
@@ -230,67 +197,33 @@
     swap5 pop swap2 pop swap2 pop // [s0_out, s1_out, s2_out]
 }
 
-#define macro LONG_DIVISION(divisor, reciprocal) = takes(1) returns(2) {
+#define macro DECOMPOSE(divisor) = takes(1) returns(2) {
     // input stack: [element]
     // output stack: [quotient, remainder]
-}
-
-#define macro DECOMPOSE() = takes(1) returns(27) {
-    // single word long division
-    // input stack: [s0]
-    // output stack: [quotient_0, remainder_0, ..]
-
-    LONG_DIVISION(DIVISOR_26, RECIPROCAL_26) // [quotient_26, remainder_26, ..] 
-    LONG_DIVISION(DIVISOR_25, RECIPROCAL_25) // [quotient_25, remainder_25, ..]
-    LONG_DIVISION(DIVISOR_24, RECIPROCAL_24) // [quotient_24, remainder_24, ..]
-    LONG_DIVISION(DIVISOR_23, RECIPROCAL_23) // [quotient_23, remainder_23, ..]
-    LONG_DIVISION(DIVISOR_22, RECIPROCAL_22) // [quotient_22, remainder_22, ..]
-    LONG_DIVISION(DIVISOR_21, RECIPROCAL_21) // [quotient_21, remainder_21, ..]
-    LONG_DIVISION(DIVISOR_20, RECIPROCAL_20) // [quotient_20, remainder_20, ..]
-    LONG_DIVISION(DIVISOR_19, RECIPROCAL_19) // [quotient_19, remainder_19, ..]
-    LONG_DIVISION(DIVISOR_18, RECIPROCAL_18) // [quotient_18, remainder_18, ..]
-    LONG_DIVISION(DIVISOR_17, RECIPROCAL_17) // [quotient_17, remainder_17, ..]
-    LONG_DIVISION(DIVISOR_16, RECIPROCAL_16) // [quotient_16, remainder_16, ..]
-    LONG_DIVISION(DIVISOR_15, RECIPROCAL_15) // [quotient_15, remainder_15, ..]
-    LONG_DIVISION(DIVISOR_14, RECIPROCAL_14) // [quotient_14, remainder_14, ..]
-    LONG_DIVISION(DIVISOR_13, RECIPROCAL_13) // [quotient_13, remainder_13, ..]
-    LONG_DIVISION(DIVISOR_12, RECIPROCAL_12) // [quotient_12, remainder_12, ..]
-    LONG_DIVISION(DIVISOR_11, RECIPROCAL_11) // [quotient_11, remainder_11, ..]
-    LONG_DIVISION(DIVISOR_10, RECIPROCAL_10) // [quotient_10, remainder_10, ..]
-    LONG_DIVISION(DIVISOR_9, RECIPROCAL_9) // [quotient_9, remainder_9, ..]
-    LONG_DIVISION(DIVISOR_8, RECIPROCAL_8) // [quotient_8, remainder_8, ..]
-    LONG_DIVISION(DIVISOR_7, RECIPROCAL_7) // [quotient_7, remainder_7, ..]
-    LONG_DIVISION(DIVISOR_6, RECIPROCAL_6) // [quotient_6, remainder_6, ..]
-    LONG_DIVISION(DIVISOR_5, RECIPROCAL_5) // [quotient_5, remainder_5, ..]
-    LONG_DIVISION(DIVISOR_4, RECIPROCAL_4) // [quotient_4, remainder_4, remainder_3, remainder_2, ..]
-    LONG_DIVISION(DIVISOR_3, RECIPROCAL_3) // [quotient_3, remainder_3, remainder_2, remainder_1, remainder_0]
-    LONG_DIVISION(DIVISOR_2, RECIPROCAL_2) // [quotient_2, remainder_2, remainder_1, remainder_0]
-    LONG_DIVISION(DIVISOR_1, RECIPROCAL_1) // [quotient_1, remainder_1, remainder_0, ..]
+    0x02 shl // [shifted_element]
+    <divisor> dup1 dup3 div // [quotient, divisor, shifted_element]
+    swap2 mod swap1 // [quotient, remainder]
+    swap1 0x02 shr swap1 // [quotient, remainder]
 }
 
 #define macro COMPOSE() = takes(27) returns(1) {
-    // single word mul + add
+    // res = (iterative_val * si_i) + remainder_i from 1..26 
 }
 
-#define macro SBOX() = takes(1) returns(1) {
+#define macro GET_SBOX_VALUE(sbox_compressed_idx) = takes(1) returns (1) {
+    pop <sbox_compressed_idx> swap1 0x10 // [0x10, index_in_compressed_sbox, sbox_0]
+    UNPACK_FROM_CENTER() // [sbox_value]
+}
+
+#define fn SBOX() = takes(1) returns(1) {
+    // TODO: optimize into macro, this is disgusting
     // get sbox value from index provided by top element
     // of stack
-    // what we want to do here is, take the index of the element / 16, and then ifeq from 0 => 43
-    // if we find the index within the compressed sbox, we do element % 16, shl till we reach it, 
-    // and return the value
-    // OR jumpi while keeping result in the top of the stack
+    // jumpi while keeping result in the top of the stack
     // input stack: [index]
-    dup1 // [index, index]
-    0x10 // [0x10, index, index]
-    swap1 // [index, 0x10, index]
-    div // [index_of_compressed_sbox, index]
-    swap1 // [index, index_of_compressed_sbox]
-    0x10 // [0x10, index, index_of_compressed_sbox]
-    swap1 // [index, 0x10, index_of_compressed_sbox]
-    mod // [index_in_compressed_sbox, index_of_compressed_sbox]
-    0x10 // [0x10, index_in_compressed_sbox, index_of_compressed_sbox]
-    mul // [index_in_compressed_sbox, index_of_compressed_sbox]
-    swap1 // [index_of_compressed_sbox, index_in_compressed_sbox]
+    dup1 0x10 swap1 div // [index_of_compressed_sbox, index]
+    swap1 0x10 swap1 mod // [index_in_compressed_sbox, index_of_compressed_sbox]
+    0x10 mul swap1 // [index_of_compressed_sbox, index_in_compressed_sbox]
 
     // now we need to compare the value of the index of compressed sbox
     // with the index of the sbox we want to fetch
@@ -348,221 +281,198 @@
     // and shr to get the value
     // input stack: [index_in_compressed_sbox]
     found_compressed_sbox_index_0:
-        pop [SBOX_0] swap1 0x10 // [0x10, index_in_compressed_sbox, sbox_0]
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_0)
         cont jump
 
     found_compressed_sbox_index_1:
-        pop [SBOX_1] swap1 0x10 // [0x10, index_in_compressed_sbox, sbox_1]
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_1)
         cont jump
 
     found_compressed_sbox_index_2:
-        pop [SBOX_2] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_2)
         cont jump
 
     found_compressed_sbox_index_3:
-        pop [SBOX_3] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_3)
         cont jump
 
     found_compressed_sbox_index_4:
-        pop [SBOX_4] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_4)
         cont jump
 
     found_compressed_sbox_index_5:
-        pop [SBOX_5] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_5)
         cont jump
 
     found_compressed_sbox_index_6:
-        pop [SBOX_6] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_6)
         cont jump
 
     found_compressed_sbox_index_7:
-        pop [SBOX_7] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_7)
         cont jump
 
     found_compressed_sbox_index_8:
-        pop [SBOX_8] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_8)
         cont jump
 
     found_compressed_sbox_index_9:
-        pop [SBOX_9] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_9)
         cont jump
 
     found_compressed_sbox_index_a:
-        pop [SBOX_10] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_10)
         cont jump
 
     found_compressed_sbox_index_b:
-        pop [SBOX_11] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_11)
         cont jump
 
     found_compressed_sbox_index_c:
-        pop [SBOX_12] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_12)
         cont jump
 
     found_compressed_sbox_index_d:
-        pop [SBOX_13] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_13)
         cont jump
 
     found_compressed_sbox_index_e:
-        pop [SBOX_14] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_14)
         cont jump
 
     found_compressed_sbox_index_f:
-        pop [SBOX_15] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_15)
         cont jump
 
     found_compressed_sbox_index_10:
-        pop [SBOX_16] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_16)
         cont jump
 
     found_compressed_sbox_index_11:
-        pop [SBOX_17] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_17)
         cont jump
 
     found_compressed_sbox_index_12:
-        pop [SBOX_18] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_18)
         cont jump
 
     found_compressed_sbox_index_13:
-        pop [SBOX_19] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_19)
         cont jump
 
     found_compressed_sbox_index_14:
-        pop [SBOX_20] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_20)
         cont jump
 
     found_compressed_sbox_index_15:
-        pop [SBOX_21] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_21)
         cont jump
 
     found_compressed_sbox_index_16:
-        pop [SBOX_22] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_22)
         cont jump
 
     found_compressed_sbox_index_17:
-        pop [SBOX_23] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_23)
         cont jump
 
     found_compressed_sbox_index_18:
-        pop [SBOX_24] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_24)
         cont jump
 
     found_compressed_sbox_index_19:
-        pop [SBOX_25] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_25)
         cont jump
 
     found_compressed_sbox_index_1a:
-        pop [SBOX_26] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_26)
         cont jump
 
     found_compressed_sbox_index_1b:
-        pop [SBOX_27] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_27)
         cont jump
 
     found_compressed_sbox_index_1c:
-        pop [SBOX_28] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_28)
         cont jump
 
     found_compressed_sbox_index_1d:
-        pop [SBOX_29] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_29)
         cont jump
 
     found_compressed_sbox_index_1e:
-        pop [SBOX_30] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_30)
         cont jump
 
     found_compressed_sbox_index_1f:
-        pop [SBOX_31] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_31)
         cont jump
 
     found_compressed_sbox_index_20:
-        pop [SBOX_32] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_32)
         cont jump
 
     found_compressed_sbox_index_21:
-        pop [SBOX_33] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_33)
         cont jump
 
     found_compressed_sbox_index_22:
-        pop [SBOX_34] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_34)
         cont jump
 
     found_compressed_sbox_index_23:
-        pop [SBOX_35] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_35)
         cont jump
 
     found_compressed_sbox_index_24:
-        pop [SBOX_36] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_36)
         cont jump
 
     found_compressed_sbox_index_25:
-        pop [SBOX_37] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_37)
         cont jump
 
     found_compressed_sbox_index_26:
-        pop [SBOX_38] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_38)
         cont jump
 
     found_compressed_sbox_index_27:
-        pop [SBOX_39] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_39)
         cont jump
 
     found_compressed_sbox_index_28:
-        pop [SBOX_40] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_40)
         cont jump
 
     found_compressed_sbox_index_29:
-        pop [SBOX_41] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_41)
         cont jump
 
     found_compressed_sbox_index_2a:
-        pop [SBOX_42] swap1 0x10
-        UNPACK_FROM_CENTER() // [sbox_value]
+        GET_SBOX_VALUE(SBOX_42)
         cont jump
 
     cont:
+}
+
+#define macro DECOMPOSE_AND_SBOX(divisor) = takes(1) returns (1) {
+    DECOMPOSE(<divisor>) swap1 SBOX() swap1 // [quotient, sboxed]
+}
+
+#define macro BARS_ELEMENT() = takes(1) returns (1) {
+    // input stack: [s0]
+    DECOMPOSE_AND_SBOX(DIVISOR_26) DECOMPOSE_AND_SBOX(DIVISOR_25) DECOMPOSE_AND_SBOX(DIVISOR_24)
+    DECOMPOSE_AND_SBOX(DIVISOR_23) DECOMPOSE_AND_SBOX(DIVISOR_22) DECOMPOSE_AND_SBOX(DIVISOR_21)
+    DECOMPOSE_AND_SBOX(DIVISOR_20) DECOMPOSE_AND_SBOX(DIVISOR_19) DECOMPOSE_AND_SBOX(DIVISOR_18)
+    DECOMPOSE_AND_SBOX(DIVISOR_17) DECOMPOSE_AND_SBOX(DIVISOR_16) DECOMPOSE_AND_SBOX(DIVISOR_15)
+    DECOMPOSE_AND_SBOX(DIVISOR_14) DECOMPOSE_AND_SBOX(DIVISOR_13) DECOMPOSE_AND_SBOX(DIVISOR_12)
+    DECOMPOSE_AND_SBOX(DIVISOR_11) DECOMPOSE_AND_SBOX(DIVISOR_10) DECOMPOSE_AND_SBOX(DIVISOR_9)
+    DECOMPOSE_AND_SBOX(DIVISOR_8) DECOMPOSE_AND_SBOX(DIVISOR_7) DECOMPOSE_AND_SBOX(DIVISOR_6)
+    DECOMPOSE_AND_SBOX(DIVISOR_5) DECOMPOSE_AND_SBOX(DIVISOR_4) DECOMPOSE_AND_SBOX(DIVISOR_3)
+    DECOMPOSE_AND_SBOX(DIVISOR_2) DECOMPOSE_AND_SBOX(DIVISOR_1) SBOX() // just sbox the last element since its decomposed
+
+    // now we have the sboxed values, we need to compose them
+    COMPOSE()
 }
 
 #define macro BARS() = takes(3) returns(3) {
@@ -571,26 +481,22 @@
     // and compose the elements
 
     // input stack: [s0, s1, s2]
-    DECOMPOSE() // [q, r_0, r_1, .., r_26, s1, s2]
-    SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
-    SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
-    SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
-    COMPOSE() // [s0_out, s1, s2]
-    swap1 // [s1, s0_out, s2]
+    BARS_ELEMENT() // [s0_sboxed, s1, s2]
+    // swap1
 
-    DECOMPOSE()
-    SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
-    SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
-    SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
-    COMPOSE() // [s1_out, s0_out, s2]
-    swap2 // [s2, s0_out, s1_out]
+    // DECOMPOSE()
+    // SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
+    // SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
+    // SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
+    // COMPOSE() // [s1_out, s0_out, s2]
+    // swap2 // [s2, s0_out, s1_out]
 
-    DECOMPOSE()
-    SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
-    SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
-    SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
-    COMPOSE() // [s2_out, s0_out, s1_out]
-    swap2 swap1 // [s0_out, s1_out, s2_out]
+    // DECOMPOSE()
+    // SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
+    // SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
+    // SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX() SBOX()
+    // COMPOSE() // [s2_out, s0_out, s1_out]
+    // swap2 swap1 // [s0_out, s1_out, s2_out]
 }
 
 #define macro MAIN() = takes(0) returns(0) {
@@ -608,8 +514,8 @@
     BRICKS()
     CONCRETE(C30, C31, C32)
 
-    // // middle rounds <not implemented>
-    // BARS()
+    // // middle rounds <not implemented fully>
+    BARS()
     // CONCRETE(C40, C41, C42)
 
     // // last rounds <not implemented>

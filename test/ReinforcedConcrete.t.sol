@@ -22,7 +22,13 @@ contract RCTest is Test {
         // bricks assertion
         // assertEq(val, 0x21b2d62d0463a46cd3ee90f6e6f02fadfa0ef96239e05d925cf21c11950be875);
         // first rounds assertion
-        assertEq(val, 0x0a1bbc638e16abd280864ccd79f173586743ae47a13140600d3cf98a8ffa4dd4);
+        // assertEq(val, 0x0a1bbc638e16abd280864ccd79f173586743ae47a13140600d3cf98a8ffa4dd4);
+        // long div assertion (quotient 26)
+        // assertEq(val, 140);
+        // decompose and sbox assertion (26) sbox[571] = 250
+        // assertEq(val, 250);
+        // decompose and sbox assertion final
+        assertEq(val, 306);
     }
 
     function testHasherGas() public view {
