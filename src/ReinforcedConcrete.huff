@@ -223,9 +223,9 @@
     MUL_AND_ADD(SI_25) MUL_AND_ADD(SI_26)
 }
 
-#define macro GET_SBOX_VALUE(SBOX_COMPRESSED_IDX) = takes(1) returns (1) {
-    // input stack: [index_in_compressed_sbox]
-    <SBOX_COMPRESSED_IDX> swap1 0x10 // [0x10, index_in_compressed_sbox, sbox_0]
+#define macro GET_SBOX_VALUE() = takes(1) returns (1) {
+    // input stack: [sbox_compressed, index_in_compressed_sbox]
+    swap1 0x10 // [0x10, index_in_compressed_sbox, sbox_compressed]
     UNPACK_FROM_CENTER() // [sbox_value]
 }
 
@@ -242,11 +242,9 @@
 }
 
 #define fn SBOX() = takes(1) returns(1) {
-    // TODO: optimize into macro, this is disgusting
     // get sbox value from index provided by top element
     // of stack
-    // jumpi while keeping result in the top of the stack
-    // input stack: [index]
+    // use jumptable to get the correct sbox
     dup1 0x10 swap1 div // [index_of_compressed_sbox, index]
     swap1 0x10 swap1 mod 0x10 mul // [index_in_compressed_sbox, index_of_compressed_sbox]
     swap1 // [index_of_compressed_sbox, index_in_compressed_sbox]
@@ -256,183 +254,186 @@
 
     // input stack: [index_in_compressed_sbox]
     found_compressed_sbox_index_0:
-        GET_SBOX_VALUE(SBOX_0)
+        [SBOX_0]
         cont jump
 
     found_compressed_sbox_index_1:
-        GET_SBOX_VALUE(SBOX_1)
+        [SBOX_1]
         cont jump
 
     found_compressed_sbox_index_2:
-        GET_SBOX_VALUE(SBOX_2)
+        [SBOX_2]
         cont jump
 
     found_compressed_sbox_index_3:
-        GET_SBOX_VALUE(SBOX_3)
+        [SBOX_3]
         cont jump
 
     found_compressed_sbox_index_4:
-        GET_SBOX_VALUE(SBOX_4)
+        [SBOX_4]
         cont jump
 
     found_compressed_sbox_index_5:
-        GET_SBOX_VALUE(SBOX_5)
+        [SBOX_5]
         cont jump
 
     found_compressed_sbox_index_6:
-        GET_SBOX_VALUE(SBOX_6)
+        [SBOX_6]
         cont jump
 
     found_compressed_sbox_index_7:
-        GET_SBOX_VALUE(SBOX_7)
+        [SBOX_7]
         cont jump
 
     found_compressed_sbox_index_8:
-        GET_SBOX_VALUE(SBOX_8)
+        [SBOX_8]
         cont jump
 
     found_compressed_sbox_index_9:
-        GET_SBOX_VALUE(SBOX_9)
+        [SBOX_9]
         cont jump
 
     found_compressed_sbox_index_a:
-        GET_SBOX_VALUE(SBOX_10)
+        [SBOX_10]
         cont jump
 
     found_compressed_sbox_index_b:
-        GET_SBOX_VALUE(SBOX_11)
+        [SBOX_11]
         cont jump
 
     found_compressed_sbox_index_c:
-        GET_SBOX_VALUE(SBOX_12)
+        [SBOX_12]
         cont jump
 
     found_compressed_sbox_index_d:
-        GET_SBOX_VALUE(SBOX_13)
+        [SBOX_13]
         cont jump
 
     found_compressed_sbox_index_e:
-        GET_SBOX_VALUE(SBOX_14)
+        [SBOX_14]
         cont jump
 
     found_compressed_sbox_index_f:
-        GET_SBOX_VALUE(SBOX_15)
+        [SBOX_15]
         cont jump
 
     found_compressed_sbox_index_10:
-        GET_SBOX_VALUE(SBOX_16)
+        [SBOX_16]
         cont jump
 
     found_compressed_sbox_index_11:
-        GET_SBOX_VALUE(SBOX_17)
+        [SBOX_17]
         cont jump
 
     found_compressed_sbox_index_12:
-        GET_SBOX_VALUE(SBOX_18)
+        [SBOX_18]
         cont jump
 
     found_compressed_sbox_index_13:
-        GET_SBOX_VALUE(SBOX_19)
+        [SBOX_19]
         cont jump
 
     found_compressed_sbox_index_14:
-        GET_SBOX_VALUE(SBOX_20)
+        [SBOX_20]
         cont jump
 
     found_compressed_sbox_index_15:
-        GET_SBOX_VALUE(SBOX_21)
+        [SBOX_21]
         cont jump
 
     found_compressed_sbox_index_16:
-        GET_SBOX_VALUE(SBOX_22)
+        [SBOX_22]
         cont jump
 
     found_compressed_sbox_index_17:
-        GET_SBOX_VALUE(SBOX_23)
+        [SBOX_23]
         cont jump
 
     found_compressed_sbox_index_18:
-        GET_SBOX_VALUE(SBOX_24)
+        [SBOX_24]
         cont jump
 
     found_compressed_sbox_index_19:
-        GET_SBOX_VALUE(SBOX_25)
+        [SBOX_25]
         cont jump
 
     found_compressed_sbox_index_1a:
-        GET_SBOX_VALUE(SBOX_26)
+        [SBOX_26]
         cont jump
 
     found_compressed_sbox_index_1b:
-        GET_SBOX_VALUE(SBOX_27)
+        [SBOX_27]
         cont jump
 
     found_compressed_sbox_index_1c:
-        GET_SBOX_VALUE(SBOX_28)
+        [SBOX_28]
         cont jump
 
     found_compressed_sbox_index_1d:
-        GET_SBOX_VALUE(SBOX_29)
+        [SBOX_29]
         cont jump
 
     found_compressed_sbox_index_1e:
-        GET_SBOX_VALUE(SBOX_30)
+        [SBOX_30]
         cont jump
 
     found_compressed_sbox_index_1f:
-        GET_SBOX_VALUE(SBOX_31)
+        [SBOX_31]
         cont jump
 
     found_compressed_sbox_index_20:
-        GET_SBOX_VALUE(SBOX_32)
+        [SBOX_32]
         cont jump
 
     found_compressed_sbox_index_21:
-        GET_SBOX_VALUE(SBOX_33)
+        [SBOX_33]
         cont jump
 
     found_compressed_sbox_index_22:
-        GET_SBOX_VALUE(SBOX_34)
+        [SBOX_34]
         cont jump
 
     found_compressed_sbox_index_23:
-        GET_SBOX_VALUE(SBOX_35)
+        [SBOX_35]
         cont jump
 
     found_compressed_sbox_index_24:
-        GET_SBOX_VALUE(SBOX_36)
+        [SBOX_36]
         cont jump
 
     found_compressed_sbox_index_25:
-        GET_SBOX_VALUE(SBOX_37)
+        [SBOX_37]
         cont jump
 
     found_compressed_sbox_index_26:
-        GET_SBOX_VALUE(SBOX_38)
+        [SBOX_38]
         cont jump
 
     found_compressed_sbox_index_27:
-        GET_SBOX_VALUE(SBOX_39)
+        [SBOX_39]
         cont jump
 
     found_compressed_sbox_index_28:
-        GET_SBOX_VALUE(SBOX_40)
+        [SBOX_40]
         cont jump
 
     found_compressed_sbox_index_29:
-        GET_SBOX_VALUE(SBOX_41)
+        [SBOX_41]
         cont jump
 
     found_compressed_sbox_index_2a:
-        GET_SBOX_VALUE(SBOX_42)
+        [SBOX_42]
         cont jump
 
     push0 push0 revert
+
     cont:
+        // input stack: [sbox_compressed, index_in_compressed_sbox]
+        GET_SBOX_VALUE() // [sbox_value]
 }
 
-#define macro DECOMPOSE_AND_SBOX(divisor) = takes(1) returns (1) {
-    DECOMPOSE(<divisor>) swap1 SBOX() swap1 // [quotient, sboxed]
+#define macro DECOMPOSE_AND_SBOX(DIVISOR) = takes(1) returns (1) {
+    DECOMPOSE(<DIVISOR>) swap1 SBOX() swap1 // [quotient, sboxed]
 }
 
 #define macro BARS_ELEMENT() = takes(1) returns (1) {
