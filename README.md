@@ -4,10 +4,7 @@ Ports [Reinforced Concrete](https://eprint.iacr.org/2021/1038.pdf) Hash function
 
 Provides full test parity with the existing implementation in [rust](https://extgit.iaik.tugraz.at/krypto/zkfriendlyhashzoo/-/blob/33fe9952682eca1337ac7f947b9ebe366faeda9c/plain_impls/src/reinforced_concrete/reinforced_concrete.rs)
 
-> [!WARNING]
-> This implementation consumes an enormous amount of gas (`64_494`). This is primarily due to the use of 
-lookups within the sbox table, i.e 27 lookups per state element * 3 state elements = 81 total lookups within
-compressed sbox's. The sbox's are compressed due to a size limitation (683 elements within the sbox lookup table).
+> Note: This implementation consumes `25565` gas. 
 
 ## Usage
 
