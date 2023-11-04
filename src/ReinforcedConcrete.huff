@@ -498,7 +498,11 @@
     BRICKS()
     CONCRETE(C60, C61, C62)
     BRICKS()
-    CONCRETE(C70, C71, C72)
+    // we can just run concrete for s0 for the last round
+    [Q] dup2 dup4 addmod
+    [Q] swap1 dup5 addmod 
+    [Q] dup2 dup4 addmod 
+    [Q] swap1 [C70] addmod
 
     push0 mstore
     0x20 push0 return
