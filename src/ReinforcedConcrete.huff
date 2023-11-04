@@ -37,7 +37,6 @@
 // bars constants
 // pulled from the implementation, and compressed into 43 constants
 // to fetch a value of the sbox from here, we make the trade-off for storage with extra gas
-// todo: build multiplexer 
 #define constant SBOX_0 = 0x017900de00f3021902060175009801b3020e01600002019a0201022102370162
 #define constant SBOX_1 = 0x0195005000e90105003100f00238004a0083015d00920116014a0174002b01b0
 #define constant SBOX_2 = 0x00f70247006900cb027d0133001d0255027900c60207005f0094003e00440138
