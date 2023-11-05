@@ -10,6 +10,13 @@ interface ReinforcedConcrete {
 
 contract Deploy is Script {
     function run() public returns (ReinforcedConcrete rc) {
-        rc = ReinforcedConcrete(HuffDeployer.deploy("ReinforcedConcrete"));
+        bytes memory bytecode = new HuffConfig().creation_code("ReinforcedConcrete");
+        vm.startBroadcast();
+        address deployedAddress;
+        assembly {
+            deployedAddress := create(0, add(bytecode, 0x20), mload(bytecode))
+        }
+        rc = ReinforcedConcrete(deployedAddress);
+        vm.stopBroadcast();
     }
 }

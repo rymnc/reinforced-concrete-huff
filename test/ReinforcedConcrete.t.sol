@@ -9,7 +9,7 @@ contract RCTest is Test {
     ReinforcedConcrete public rc;
 
     function setUp() public {
-        rc = new Deploy().run();
+        rc = ReinforcedConcrete(HuffDeployer.deploy("ReinforcedConcrete"));
     }
 
     function testHasher() public {
