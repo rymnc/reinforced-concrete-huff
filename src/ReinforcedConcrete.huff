@@ -109,33 +109,33 @@
 #define constant SI_25 = 0x292
 #define constant SI_26 = 0x28b
 
-#define constant DIVISOR_0  = 0xa84
-#define constant DIVISOR_1  = 0xa98
-#define constant DIVISOR_2  = 0xa6c
-#define constant DIVISOR_3  = 0xaac
-#define constant DIVISOR_4  = 0xaa0
-#define constant DIVISOR_5  = 0xa3c
-#define constant DIVISOR_6  = 0xaac
-#define constant DIVISOR_7  = 0xaac
-#define constant DIVISOR_8  = 0xaa4
-#define constant DIVISOR_9  = 0xaac
-#define constant DIVISOR_10 = 0xa8c
-#define constant DIVISOR_11 = 0xa70
-#define constant DIVISOR_12 = 0xa8c
-#define constant DIVISOR_13 = 0xa94
-#define constant DIVISOR_14 = 0xaa0
-#define constant DIVISOR_15 = 0xaa4
-#define constant DIVISOR_16 = 0xa74
-#define constant DIVISOR_17 = 0xaac
-#define constant DIVISOR_18 = 0xaa4
-#define constant DIVISOR_19 = 0xa94
-#define constant DIVISOR_20 = 0xa70
-#define constant DIVISOR_21 = 0xa38
-#define constant DIVISOR_22 = 0xa5c
-#define constant DIVISOR_23 = 0xa68
-#define constant DIVISOR_24 = 0xa40
-#define constant DIVISOR_25 = 0xa48
-#define constant DIVISOR_26 = 0xa2c
+#define constant DIVISOR_0 = 0x2a1
+#define constant DIVISOR_1 = 0x2a6
+#define constant DIVISOR_2 = 0x29b
+#define constant DIVISOR_3 = 0x2ab
+#define constant DIVISOR_4 = 0x2a8
+#define constant DIVISOR_5 = 0x28f
+#define constant DIVISOR_6 = 0x2ab
+#define constant DIVISOR_7 = 0x2ab
+#define constant DIVISOR_8 = 0x2a9
+#define constant DIVISOR_9 = 0x2ab
+#define constant DIVISOR_10 = 0x2a3
+#define constant DIVISOR_11 = 0x29c
+#define constant DIVISOR_12 = 0x2a3
+#define constant DIVISOR_13 = 0x2a5
+#define constant DIVISOR_14 = 0x2a8
+#define constant DIVISOR_15 = 0x2a9
+#define constant DIVISOR_16 = 0x29d
+#define constant DIVISOR_17 = 0x2ab
+#define constant DIVISOR_18 = 0x2a9
+#define constant DIVISOR_19 = 0x2a5
+#define constant DIVISOR_20 = 0x29c
+#define constant DIVISOR_21 = 0x28e
+#define constant DIVISOR_22 = 0x297
+#define constant DIVISOR_23 = 0x29a
+#define constant DIVISOR_24 = 0x290
+#define constant DIVISOR_25 = 0x292
+#define constant DIVISOR_26 = 0x28b
 
 /* Methods */
 #define macro CONCRETE(CONST_A, CONST_B, CONST_C) = takes (3) returns (3) {
@@ -199,10 +199,8 @@
 #define macro DECOMPOSE(DIVISOR) = takes(1) returns(2) {
     // input stack: [element]
     // output stack: [quotient, remainder]
-    0x02 shl // [shifted_element]
     <DIVISOR> dup1 dup3 div // [quotient, divisor, shifted_element]
     swap2 mod swap1 // [quotient, remainder]
-    swap1 0x02 shr swap1 // [quotient, remainder]
 }
 
 #define macro MUL_AND_ADD(SI_I) = takes(2) returns (1) {

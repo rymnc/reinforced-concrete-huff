@@ -4,7 +4,7 @@ Ports [Reinforced Concrete](https://eprint.iacr.org/2021/1038.pdf) Hash function
 
 Provides full test parity with the existing implementation in [rust](https://extgit.iaik.tugraz.at/krypto/zkfriendlyhashzoo/-/blob/33fe9952682eca1337ac7f947b9ebe366faeda9c/plain_impls/src/reinforced_concrete/reinforced_concrete.rs)
 
-> Note: This implementation consumes `25480` gas. 
+> Note: This implementation consumes `24076` gas. 
 
 ## Deployments
 
