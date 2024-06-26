@@ -4,13 +4,13 @@ Ports [Reinforced Concrete](https://eprint.iacr.org/2021/1038.pdf) Hash function
 
 Provides full test parity with the existing implementation in [rust](https://extgit.iaik.tugraz.at/krypto/zkfriendlyhashzoo/-/blob/33fe9952682eca1337ac7f947b9ebe366faeda9c/plain_impls/src/reinforced_concrete/reinforced_concrete.rs)
 
-> Note: This implementation consumes `24076` gas. 
+> Note: This implementation consumes `24099` gas. 
 
 ## Deployments
 
 | Network | Address                                    |
 |---------|--------------------------------------------|
-| Sepolia | [0x73F3A616C6958026F1730cb89d7e3D2221A6d5b9](./broadcast/ReinforcedConcrete.s.sol/11155111/run-latest.json) |
+| Sepolia | [0x2658637ccfc5f9ca7607138b61270d5d1650081a](./broadcast/ReinforcedConcrete.s.sol/11155111/run-latest.json) |
 
 ## Usage
 
