@@ -473,7 +473,10 @@
 
     push0 // [0]
     0x24 calldataload // [s1, 0]
+    // check if inputs are within Q
+    dup1 [Q] lt bad_input jumpi // [s1, 0]
     0x04 calldataload // [s0, s1, 0]
+    dup1 [Q] lt bad_input jumpi // [s0, s1, 0]
 
     CONCRETE(C00, C01, C02) // [s0, s1, s2]
 
@@ -485,11 +488,11 @@
     BRICKS()
     CONCRETE(C30, C31, C32)
 
-    // // middle rounds <not implemented fully>
+    // middle rounds 
     BARS()
     CONCRETE(C40, C41, C42)
 
-    // last rounds <not implemented>
+    // last rounds 
     BRICKS()
     CONCRETE(C50, C51, C52)
     BRICKS()
@@ -503,4 +506,7 @@
 
     push0 mstore
     0x20 push0 return
+
+    bad_input:
+        push0 push0 revert
 }
